@@ -1,0 +1,25 @@
+{
+    "name": "schema-validator-pro/wordpress-plugin",
+    "description": "WordPress Schema.org Auto-Injection Plugin - Test Suite",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6",
+        "yoast/phpunit-polyfills": "^2.0",
+        "brain/monkey": "^2.6"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SchemaValidatorPro\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-text",
+        "test:coverage-html": "phpunit --coverage-html tests/coverage"
+    }
+}
+
