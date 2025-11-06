@@ -769,8 +769,43 @@ if (!class_exists('wpdb')) {
         public $options = 'wp_options';
 
         public function query($query) {
-            global $test_wpdb_query_result;
+            global $test_wpdb_query_result, $test_transients;
+
+            // If this is a DELETE query for SVP transients, also clear $test_transients
+            // Note: underscores in query are escaped as \_
+            if (strpos($query, 'DELETE') !== false && (strpos($query, 'svp\\_schema\\_') !== false || strpos($query, 'svp_schema_') !== false)) {
+                // Extract post_id from query if present
+                // Pattern: \_transient\_svp\_schema\_123\_% or svp_schema_123_
+                if (preg_match("/svp\\\\_schema\\\\_(\\d+)\\\\_/", $query, $matches) || preg_match("/svp_schema_(\\d+)_/", $query, $matches)) {
+                    $post_id = $matches[1];
+                    // Clear all transients for this post
+                    foreach (array_keys($test_transients) as $key) {
+                        if (strpos($key, 'svp_schema_' . $post_id . '_') === 0) {
+                            unset($test_transients[$key]);
+                        }
+                    }
+                } else {
+                    // Clear all SVP transients
+                    foreach (array_keys($test_transients) as $key) {
+                        if (strpos($key, 'svp_schema_') === 0) {
+                            unset($test_transients[$key]);
+                        }
+                    }
+                }
+            }
+
             return isset($test_wpdb_query_result) ? $test_wpdb_query_result : 0;
+        }
+
+        public function prepare($query, ...$args) {
+            // Simple mock implementation
+            $query = str_replace('%s', "'%s'", $query);
+            $query = str_replace('%d', '%d', $query);
+            return vsprintf($query, $args);
+        }
+
+        public function esc_like($text) {
+            return addcslashes($text, '_%\\');
         }
     }
 }

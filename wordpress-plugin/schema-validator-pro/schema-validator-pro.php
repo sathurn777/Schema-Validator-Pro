@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Schema Validator Pro
  * Description: Automatically inject Schema.org JSON-LD markup into WordPress posts and pages
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Schema Validator Pro Team
  * Text Domain: schema-validator-pro
  * Domain Path: /languages
@@ -14,13 +14,29 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constants
-define('SCHEMA_VALIDATOR_PRO_VERSION', '1.0.0');
+define('SCHEMA_VALIDATOR_PRO_VERSION', '1.0.1');
 define('SCHEMA_VALIDATOR_PRO_FILE', __FILE__);
 define('SCHEMA_VALIDATOR_PRO_DIR', plugin_dir_path(__FILE__));
 define('SCHEMA_VALIDATOR_PRO_URL', plugin_dir_url(__FILE__));
 
 // Load logger class
 require_once SCHEMA_VALIDATOR_PRO_DIR . 'includes/class-logger.php';
+
+/**
+ * Helper function to escape LIKE wildcards for wpdb
+ * Provides compatibility with older WordPress versions
+ */
+function svp_esc_like($text) {
+    global $wpdb;
+
+    // Use wpdb::esc_like() if available (WordPress 4.0+)
+    if (method_exists($wpdb, 'esc_like')) {
+        return $wpdb->esc_like($text);
+    }
+
+    // Fallback for older versions
+    return addcslashes($text, '_%\\');
+}
 
 /**
  * Load plugin textdomain for i18n
@@ -306,7 +322,11 @@ function svp_settings_page() {
 
         global $wpdb;
         $deleted = $wpdb->query(
-            "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_svp_schema_%' OR option_name LIKE '_transient_timeout_svp_schema_%'"
+            $wpdb->prepare(
+                "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
+                svp_esc_like('_transient_svp_schema_') . '%',
+                svp_esc_like('_transient_timeout_svp_schema_') . '%'
+            )
         );
 
         echo '<div class="notice notice-success is-dismissible"><p>' .
@@ -530,15 +550,30 @@ function svp_set_cached_schema($post_id, $schema_type, $schema_data, $expiration
  */
 function svp_clear_cached_schema($post_id, $schema_type = null) {
     if ($schema_type) {
+        // Clear specific schema type
         $cache_key = svp_get_schema_cache_key($post_id, $schema_type);
         delete_transient($cache_key);
     } else {
-        // Clear all schema types for this post
-        $types = ['Article', 'Product', 'Organization', 'Event', 'Person', 'Recipe', 'FAQPage', 'HowTo', 'Course'];
-        foreach ($types as $type) {
-            $cache_key = svp_get_schema_cache_key($post_id, $type);
-            delete_transient($cache_key);
+        // Clear all schema types for this post using single query
+        global $wpdb;
+
+        $pattern = svp_esc_like('_transient_svp_schema_' . $post_id . '_') . '%';
+        $timeout_pattern = svp_esc_like('_transient_timeout_svp_schema_' . $post_id . '_') . '%';
+
+        $deleted = $wpdb->query(
+            $wpdb->prepare(
+                "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
+                $pattern,
+                $timeout_pattern
+            )
+        );
+
+        // Clear object cache if available
+        if (function_exists('wp_cache_flush_group')) {
+            wp_cache_flush_group('svp_schema');
         }
+
+        return $deleted;
     }
 }
 

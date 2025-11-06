@@ -71,11 +71,34 @@ class SVP_Logger {
         // Create log directory if it doesn't exist
         if (!file_exists($log_dir)) {
             wp_mkdir_p($log_dir);
-            
-            // Add .htaccess to protect logs
+
+            // Add .htaccess to protect logs (Apache)
             $htaccess = $log_dir . '/.htaccess';
             if (!file_exists($htaccess)) {
-                file_put_contents($htaccess, "Deny from all\n");
+                $htaccess_content = "# Schema Validator Pro - Protect log files\n";
+                $htaccess_content .= "Order deny,allow\n";
+                $htaccess_content .= "Deny from all\n";
+                $htaccess_content .= "<Files ~ \"\\.(log)$\">\n";
+                $htaccess_content .= "    Deny from all\n";
+                $htaccess_content .= "</Files>\n";
+                file_put_contents($htaccess, $htaccess_content);
+            }
+
+            // Add index.php to prevent directory listing
+            $index_file = $log_dir . '/index.php';
+            if (!file_exists($index_file)) {
+                file_put_contents($index_file, "<?php\n// Silence is golden.\n");
+            }
+
+            // Add README with Nginx configuration
+            $readme_file = $log_dir . '/README.txt';
+            if (!file_exists($readme_file)) {
+                $readme_content = "Schema Validator Pro - Log Directory\n\n";
+                $readme_content .= "For Nginx users, add this to your server configuration:\n\n";
+                $readme_content .= "location ~* /wp-content/uploads/schema-validator-pro-logs/ {\n";
+                $readme_content .= "    deny all;\n";
+                $readme_content .= "}\n";
+                file_put_contents($readme_file, $readme_content);
             }
         }
         
