@@ -1,4 +1,0 @@
-"""
-Backend models package.
-"""
-

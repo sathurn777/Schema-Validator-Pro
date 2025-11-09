@@ -1,12 +1,37 @@
-# Python
+# ============================================
+# Schema Validator Pro 2.0 - .gitignore
+# TypeScript Monorepo Project
+# ============================================
+
+# ============================================
+# Dependencies
+# ============================================
+node_modules/
+.pnp
+.pnp.js
+
+# ============================================
+# Build Outputs
+# ============================================
+build/
+dist/
+.next/
+out/
+*.tsbuildinfo
+
+# Browser Extension Builds
+packages/browser-extension/build/
+packages/browser-extension/.plasmo/
+
+# ============================================
+# Python (Legacy Backend - Not Part of v2.0)
+# ============================================
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -19,34 +44,172 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-
-# Virtual Environment
 venv/
 env/
 ENV/
 .venv
+test_venv/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+pytest.ini
+requirements*.txt
+setup.py
+setup.cfg
+MANIFEST.in
 
-# IDE
+# ============================================
+# Legacy Backend & WordPress (Not Part of v2.0)
+# ============================================
+backend/
+wordpress-plugin/
+config/
+scripts/
+tests/
+docker-compose*.yml
+
+# ============================================
+# Documentation (Exclude Session Memory & Reports)
+# ============================================
+docs/
+QUICK_START.md
+*_REPORT.md
+*_SUMMARY.md
+*_AUDIT*.md
+*_GUIDE.md
+*_PLAN.md
+*_STATUS.md
+*_CHECKLIST.md
+*_ANALYSIS.md
+*_ASSESSMENT.md
+*_PROGRESS.md
+*_DELIVERY*.md
+*_COMPLETION*.md
+*_QUALITY*.md
+*_TESTING*.md
+*_VALIDATION*.md
+*_EXECUTIVE*.md
+*_NOTES*.md
+*_REFERENCE*.md
+*_FIXES*.md
+*_GAPS*.md
+*_ISSUES*.md
+*_BASELINE*.md
+*_MIGRATION*.md
+*_REFACTORING*.md
+*_INTEGRATION*.md
+*_DEPLOYMENT*.md
+*_PACKAGING*.md
+*_RELEASE*.md
+*_GITHUB*.md
+*_GOOGLE*.md
+*_WORDPRESS*.md
+*_FRONTEND*.md
+*_BACKEND*.md
+*_PLUGIN*.md
+*_MEMORY*.md
+*_SESSION*.md
+*_ROADMAP*.md
+*_ARCHITECTURE*.md
+*_TECHNICAL*.md
+*_PRODUCT*.md
+*_PROPOSAL*.md
+*_DESIGN*.md
+ACCEPTANCE_CHECKLIST.md
+CHANGELOG.md
+COMPLEXITY_ANALYSIS.md
+CONTRIBUTING.md
+DEPLOYMENT.md
+FILES_CREATED.md
+MANIFEST.in
+MUST_FIX_BEFORE_LAUNCH.md
+P0_*.md
+P1-*.md
+PROJECT_STATUS.md
+PYTHON_BACKEND_TEST_PLAN.md
+STRICT_TEST_VALIDATION_REPORT.md
+TEST_*.md
+WORDPRESS_*.md
+MEMORY_*.html
+新项目启动总结-BILINGUAL.md
+错误教训/
+schema插件/
+
+# Store & Privacy Documents (Keep in Extension Package)
+# These are kept in packages/browser-extension/ only
+STORE_DESCRIPTION.md
+PRIVACY_POLICY.md
+TESTING_GUIDE.md
+
+# Chinese Documentation
+*测试指南.md
+*使用手册.md
+*安装指南.md
+*功能说明.md
+*开发指南.md
+*配置指南.md
+*产品介绍.md
+*API文档.md
+
+# ============================================
+# IDE & Editor
+# ============================================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.DS_Store
 
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-
-# Environment
+# ============================================
+# Environment Variables
+# ============================================
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# OS
+# ============================================
+# Logs
+# ============================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ============================================
+# Testing
+# ============================================
+coverage/
+.nyc_output
+
+# ============================================
+# OS Files
+# ============================================
 .DS_Store
 Thumbs.db
+*.swp
 
-# Logs
-*.log
+# ============================================
+# Temporary Files
+# ============================================
+*.tmp
+*.temp
+.cache/
 
+# ============================================
+# Lock Files (Keep pnpm-lock.yaml)
+# ============================================
+# We keep pnpm-lock.yaml for reproducible builds
+# package-lock.json
+# yarn.lock
+
+# ============================================
+# Test Schemas & Data
+# ============================================
+test_schemas_for_google.json
