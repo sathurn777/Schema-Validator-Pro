@@ -1,6 +1,21 @@
+<div align="center">
+
 # Schema Validator Pro - Browser Extension
 
+![Schema Validator Pro](./store-assets/promotional/promo-large-920x680.png)
+
+[![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-blue.svg)](https://chrome.google.com/webstore)
+[![Firefox Add-ons](https://img.shields.io/badge/Firefox-Add--ons-orange.svg)](https://addons.mozilla.org/)
+[![Edge Add-ons](https://img.shields.io/badge/Edge-Add--ons-blue.svg)](https://microsoftedge.microsoft.com/addons)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/sathurn777/Schema-Validator-Pro)
+
 A powerful browser extension for detecting and validating Schema.org JSON-LD structured data on web pages.
+
+[Features](#-features) • [Installation](#-installation) • [Usage](#-how-to-use) • [Privacy](#-privacy)
+
+</div>
+
+---
 
 ## 🎯 Features
 

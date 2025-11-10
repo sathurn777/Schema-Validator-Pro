@@ -1,21 +1,53 @@
+<div align="center">
+
 # Schema Validator Pro
 
-[![Test Coverage](https://img.shields.io/badge/coverage-91%25-brightgreen.svg)](https://github.com/schema-validator-pro/schema-validator-pro)
+![Schema Validator Pro](./packages/browser-extension/store-assets/promotional/promo-marquee-1400x560.png)
+
+[![Test Coverage](https://img.shields.io/badge/coverage-91%25-brightgreen.svg)](https://github.com/sathurn777/Schema-Validator-Pro)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue.svg)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/sathurn777/Schema-Validator-Pro/releases/tag/v2.0.0)
 
 **Production-Ready Schema.org JSON-LD Validator and Generator**
 
 A comprehensive TypeScript monorepo for generating and validating Schema.org JSON-LD markup. Includes a core library, web application, and browser extensions for Chrome, Firefox, and Edge.
 
-## ✨ Highlights
+[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
-- 🚀 **86 Tests, 100% Pass Rate, 91% Coverage** (Core Package)
-- ⚡ **TypeScript Monorepo** with pnpm workspace
-- 🎯 **9 Schema Types** with full validation
-- 🌐 **Web Application** - Next.js 16 + React 19 + Tailwind CSS v4
-- 🔌 **Browser Extensions** - Chrome, Firefox, Edge (Manifest V3)
-- 📦 **Production Ready** - All packages built and tested
+</div>
+
+---
+
+## ✨ Features
+
+### 🎯 Core Capabilities
+- **9 Schema Types** - Article, Product, Recipe, HowTo, FAQPage, Event, Person, Organization, Course
+- **Real-time Validation** - Instant feedback with detailed error messages
+- **Auto-detection** - Automatically detect Schema.org JSON-LD on any webpage
+- **TypeScript First** - Full type safety with comprehensive type definitions
+- **Zero Dependencies** - Lightweight core library with no external dependencies
+
+### 🚀 Three Ways to Use
+
+#### 1. 📚 Core Library
+- Generate Schema.org JSON-LD markup programmatically
+- Validate existing schemas with detailed error reporting
+- Tree-shakeable ESM modules for optimal bundle size
+- **86 tests, 100% pass rate, 91% coverage**
+
+#### 2. 🌐 Web Application
+- Interactive schema generator with live preview
+- Real-time validator with syntax highlighting
+- Responsive design with dark mode support
+- Built with Next.js 16 + React 19 + Tailwind CSS v4
+
+#### 3. 🔌 Browser Extensions
+- **Chrome, Firefox, Edge** support (Manifest V3)
+- Auto-detect schemas on any webpage
+- Badge notifications for schema count
+- Popup UI with validation reports
+- Options page for customization
 
 ## 📦 Packages
 
@@ -72,8 +104,8 @@ This monorepo contains three packages:
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/schema-validator-pro.git
-cd schema-validator-pro_副本2
+git clone https://github.com/sathurn777/Schema-Validator-Pro.git
+cd Schema-Validator-Pro
 
 # Install dependencies
 pnpm install
@@ -88,8 +120,6 @@ cd packages/browser-extension
 pnpm dev
 # Load extension from build/chrome-mv3-dev (or firefox/edge)
 ```
-
-**详细说明**: 查看 [QUICK_START.md](./QUICK_START.md)
 
 ## 🚀 Usage
 
